@@ -19,7 +19,7 @@ for url in urls:
         page = wikipedia.page(raw_title)
     except:
         print("Error trying to find " + raw_title)
-        missing.append(url + "\n")
+        err.write(url + "\n")
         continue
 
     title = page.title.lower()
@@ -28,15 +28,15 @@ for url in urls:
     summ_ = summ.lower()
 
     if plain_title in summ_:
-        start = summ_.find(title)
-        end = start + len(title)
+        start = summ_.find(plain_title)
+        end = start + len(plain_title)
 
-        new = summ[:start] + "[[" + url + "][" + summ[start:end] + "]]" + summ[end:] + "\n"
-        result.append(new)
+        new = summ[:start] + "[[" + url + "][" + summ[start:end] + "]]" + summ[end:] + "\n\n"
+        out.write(new)
     
     else:
-        new = "[[" + url + "][" + summ + "]]\n"
-        result.append(new)
+        new = "[[" + url + "][" + summ + "]]\n\n"
+        out.write(new)
 
     print("Added " + title)
 
